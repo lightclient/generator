@@ -54,7 +54,7 @@ exports.onCreateWebpackConfig = ({
   getConfig,
 }) => {
   console.log(`Webpack build stage: ${stage}`);
-  
+
   // Add Node.js polyfills for all build stages
   actions.setWebpackConfig({
     resolve: {
@@ -74,13 +74,13 @@ exports.onCreateWebpackConfig = ({
       // Use ProvidePlugin instead of DefinePlugin for process
       new webpack.ProvidePlugin({
         process: 'process/browser',
-      }),   
+      }),
       new webpack.ProvidePlugin({
         Buffer: ['buffer', 'Buffer'],
       }),
     ],
   });
-  
+
   // Handle client-side bundling
   if (stage === "develop" || stage === "build-javascript") {
     actions.setWebpackConfig({
@@ -92,21 +92,21 @@ exports.onCreateWebpackConfig = ({
       ],
     });
   }
-  
+
   // Handle SSR bundling
   if (stage === "build-html" || stage === "develop-html") {
     actions.setWebpackConfig({
       module: {
         rules: [
           {
-            test: /@open-rpc\/monaco-editor-react|monaco-editor|@open-rpc\/docs-react|@open-rpc\/inspector|react-json-view|monaco-vim/,
+            test: /@open-rpc\/monaco-editor-react|monaco-editor|@open-rpc\/docs-react|react-json-view|monaco-vim/,
             use: loaders.null(),
           },
         ],
       },
     });
   }
-  
+
   // Add this at the end to debug webpack config
   const config = getConfig();
   config.stats = 'verbose';
@@ -115,10 +115,10 @@ exports.onCreateWebpackConfig = ({
 
 exports.onCreatePage = ({ page, actions }) => {
   const { createPage } = actions;
-  
+
   // List of pages that should be client-side only
   const clientOnlyPaths = ['/api-documentation/'];
-  
+
   if (clientOnlyPaths.includes(page.path)) {
     page.context.disableSSR = true;
     createPage(page);

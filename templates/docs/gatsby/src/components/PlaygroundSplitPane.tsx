@@ -9,22 +9,16 @@ import {
 import './PlaygroundSplitPane.css';
 
 interface IProps {
-  showInspector?: boolean;
   editorAndDocumentationSplit?: boolean;
-  inspectorComponent?: ReactNode;
   editorComponent?: ReactNode;
   documentationComponent?: ReactNode;
-  inspectorTabComponent?: ReactNode;
 }
 
 const PlaygroundSplitPane: React.FC<IProps> = ({
-  showInspector = false,
-  inspectorComponent,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   editorComponent,
   documentationComponent,
   editorAndDocumentationSplit = false,
-  inspectorTabComponent,
 }: IProps) => {
   const containerHorizontalPanelGroupRef = useRef<ImperativePanelGroupHandle>(null);
   const containerVerticalPanelGroupRef = useRef<ImperativePanelGroupHandle>(null);
@@ -45,11 +39,7 @@ const PlaygroundSplitPane: React.FC<IProps> = ({
 
         // Set vertical layout
         if (containerVerticalPanelGroupRef.current) {
-          if (showInspector) {
-            containerVerticalPanelGroupRef.current.setLayout([50, 50]);
-          } else {
-            containerVerticalPanelGroupRef.current.setLayout([100, 0]);
-          }
+          containerVerticalPanelGroupRef.current.setLayout([100, 0]);
         }
       } catch (error) {
         // In test environments, this error can be safely ignored
@@ -58,11 +48,11 @@ const PlaygroundSplitPane: React.FC<IProps> = ({
     }, 0); // Slightly longer timeout to ensure DOM is ready
 
     return () => clearTimeout(timer);
-  }, [showInspector, editorAndDocumentationSplit]);
+  });
 
   // Calculate initial layouts for defaultSize props
   const initialHorizontalLayout = [0, 100];
-  const initialVerticalLayout = showInspector ? [50, 50] : [100, 0];
+  const initialVerticalLayout = [50, 50] : [100, 0];
 
   return (
     <PanelGroup direction="vertical" ref={containerVerticalPanelGroupRef}>
@@ -105,7 +95,6 @@ const PlaygroundSplitPane: React.FC<IProps> = ({
         </PanelGroup>
       </Panel>
       <PanelResizeHandle className="resize-handle" style={{ position: 'relative' }}>
-        {inspectorTabComponent}
       </PanelResizeHandle>
       <Panel defaultSize={initialVerticalLayout[1]}>
         <div
@@ -116,7 +105,6 @@ const PlaygroundSplitPane: React.FC<IProps> = ({
             overflowY: 'auto',
           }}
         >
-          {inspectorComponent}
         </div>
       </Panel>
     </PanelGroup>
