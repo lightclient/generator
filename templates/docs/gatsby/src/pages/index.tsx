@@ -2,7 +2,6 @@ import React from 'react';
 import { Typography, Box, Button } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { Link } from 'gatsby';
-import 'monaco-editor/esm/vs/language/json/json.worker.js';
 
 // Import needed for Monaco editor workers
 /*

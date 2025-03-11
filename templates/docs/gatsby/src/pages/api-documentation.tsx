@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import { Documentation } from '@open-rpc/docs-react';
 import './api-documentation.css';
-import * as monaco from 'monaco-editor';
 import { Container, Tab, Tabs, IconButton, Tooltip, Typography } from '@mui/material';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import ExpandLess from '@mui/icons-material/ExpandLess';
@@ -24,9 +23,6 @@ const ApiDocumentationContent: React.FC = () => {
 
   useEffect(() => {
     const t = currentTheme.palette.mode === 'dark' ? 'vs-dark' : 'vs';
-    if (monaco) {
-      monaco.editor.setTheme(t);
-    }
     setReactJsonOptions({
       ...reactJsonOptions,
       style: currentTheme.palette.mode === 'dark' ? reactJsonDarkTheme : reactJsonLightTheme,

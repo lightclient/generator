@@ -11,7 +11,6 @@ const indexTemplate = template(`import React from 'react';
 import { Typography, Box, Button } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { Link } from 'gatsby';
-import 'monaco-editor/esm/vs/language/json/json.worker.js';
 
 const IndexPage = () => {
   // For SSR, we need a simpler version
@@ -61,7 +60,7 @@ module.exports = {
     description: '<%= openrpcDocument.info.description %>',
     siteUrl: 'https://open-rpc.org',
     logoUrl: 'https://raw.githubusercontent.com/open-rpc/design/master/icons/open-rpc-logo-noText/open-rpc-logo-noText%20(PNG)/256x256.png',
-    primaryColor: '#3f51b5', //material-ui primary color
+    primaryColor: '#3f51b5', //mtaterial-ui primary color
     secondaryColor: '#f50057', //material-ui secondary color
     author: '',
     menuLinks: [
